@@ -38,7 +38,7 @@ class Device(models.Model):
         verbose_name="Điều kiện tắt",
     )
     safe_time = models.PositiveIntegerField(
-        verbose_name="Thời gian an toàn",
+        verbose_name="Thời gian an toàn theo ",
         default=120,
         null=False,
         blank=False,
@@ -46,13 +46,7 @@ class Device(models.Model):
     def __str__(self):
         return self.device_name
 
-    @property
-    def check_turn_on_condition(self, report_index):
-        pass
-    @property
-    def check_turn_off_condition(self,report_index):
-        pass
-
+    
 
 class Sensor(models.Model):
     """Cảm biến"""
@@ -62,6 +56,7 @@ class Sensor(models.Model):
         blank=False,
         null=False,
     )
+
     sensor_id = models.CharField(
         verbose_name="Mã Cảm biến",
         max_length=10,
@@ -69,12 +64,13 @@ class Sensor(models.Model):
         null=False,
         unique=True,
     )
+
     sensor_type = models.CharField(
         verbose_name="Loại cảm biến",
         max_length=10,
         choices = [
             ('air','Cảm biến không khí'),
-            ('ground','cảm biến đất')
+            ('ground','Cảm biến đất')
         ],
         blank=False,
         null=False,
@@ -154,7 +150,8 @@ class Command(models.Model):
         to=Report,
         to_field="id",
         on_delete=models.DO_NOTHING,
-        related_name="report_after"
+        related_name="report_after",
+        
     )
     time_start = models.DateTimeField(
         verbose_name="Thời gian bắt đầu",
@@ -162,15 +159,27 @@ class Command(models.Model):
     )
     time_finish = models.DateTimeField(
         verbose_name="Thời gian kết thúc",
+        blank=True,
+        null=True,   
     )
     status = models.CharField(
         verbose_name="Trạng thái",
+        max_length=10,
         choices=[
             ('create', "Khởi tạo"),
             ('holding', "Đang thực thi"),
             ('finish', "Đã hoàn thành"),
         ]
     )
+    # @classmethod
+    # def create(cls, device, report_before, status):
+    #     command= cls(
+    #         device=device,
+    #         report_before=report_before,
+    #         status=status
+    #     )
+    #     # do something with the book
+    #     return command
 
 
 class Farm(models.Model):
