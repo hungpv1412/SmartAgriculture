@@ -17,7 +17,11 @@ class Device(models.Model):
     )
     device_type = models.CharField(
         verbose_name="Loại Thiết Bị",
-        max_length=127,
+        max_length=10,
+        choices=[
+            ('pump','Máy bơm'),
+            ('light','Đèn')
+        ],
         blank=False,
         null=False,
     )
@@ -33,8 +37,21 @@ class Device(models.Model):
     turn_off_cond = models.FloatField(
         verbose_name="Điều kiện tắt",
     )
+    safe_time = models.PositiveIntegerField(
+        verbose_name="Thời gian an toàn",
+        default=120,
+        null=False,
+        blank=False,
+    )
     def __str__(self):
         return self.device_name
+
+    @property
+    def check_turn_on_condition(self, report_index):
+        pass
+    @property
+    def check_turn_off_condition(self,report_index):
+        pass
 
 
 class Sensor(models.Model):
@@ -54,7 +71,11 @@ class Sensor(models.Model):
     )
     sensor_type = models.CharField(
         verbose_name="Loại cảm biến",
-        max_length=127,
+        max_length=10,
+        choices = [
+            ('air','Cảm biến không khí'),
+            ('ground','cảm biến đất')
+        ],
         blank=False,
         null=False,
     )
@@ -142,12 +163,12 @@ class Command(models.Model):
     time_finish = models.DateTimeField(
         verbose_name="Thời gian kết thúc",
     )
-    status = models.IntegerField(
+    status = models.CharField(
         verbose_name="Trạng thái",
         choices=[
-            (1, "Khởi tạo"),
-            (2, "Đang thực thi"),
-            (3, "Đã hoàn thành")
+            ('create', "Khởi tạo"),
+            ('holding', "Đang thực thi"),
+            ('finish', "Đã hoàn thành"),
         ]
     )
 
