@@ -28,7 +28,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     """Wait the message from Subcribed Topic"""
-    print("Message "+msg.topic+" "+str(msg.payload))
+    print("Message "+msg.topic+" payload "+str(msg.payload))
     create_report(str(msg.topic), str(msg.payload)[2:-1])
 
 
@@ -49,8 +49,8 @@ def create_report(topic, payload):
     
     index = payload
     
-    # print("index : "+index)
-    # print("sensor id : "+sensor_id)
+    print("index : "+index)
+    print("sensor id : "+sensor_id)
     
     sensor = Sensor.objects.get(sensor_id=sensor_id)
     

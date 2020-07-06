@@ -169,7 +169,8 @@ class Command(models.Model):
             ('create', "Khởi tạo"),
             ('holding', "Đang thực thi"),
             ('finish', "Đã hoàn thành"),
-        ]
+        ],
+        max_length=10
     )
 
 
