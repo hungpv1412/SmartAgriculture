@@ -99,20 +99,20 @@ class Sensor(models.Model):
 
 class Report(models.Model):
     """Báo cáo từ Cảm biến"""
-    # index = JSONField(
-    #     verbose_name="thông số",
-    #     null=False,
-    #     blank=False,
-    #     editable=False,
-
-    # )
-    index = models.TextField(
+    index = JSONField(
         verbose_name="thông số",
         null=False,
         blank=False,
         editable=False,
 
     )
+    # index = models.TextField(
+    #     verbose_name="thông số",
+    #     null=False,
+    #     blank=False,
+    #     editable=False,
+
+    # )
     on_created = models.DateTimeField(
         verbose_name="Thời gian report",
         auto_now_add=True,

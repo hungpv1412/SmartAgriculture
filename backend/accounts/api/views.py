@@ -1,4 +1,4 @@
-from accounts.models import Staff, Customer, CustomerProfile, Account
+from accounts.models import Staff, Customer, Account
 
 from .serializers import (
     CustomerSerializer, 

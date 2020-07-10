@@ -100,10 +100,10 @@ class Account(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'Quản lý cao cấp',
         )
 
-    # profile = JSONField(
-    #     verbose_name= 'Profile',
-    #     default=dict,
-    # )
+    profile = JSONField(
+        verbose_name= 'Profile',
+        default=dict,
+    )
     date_joined = models.DateTimeField(
         auto_now_add = True, 
         null = True,
