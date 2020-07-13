@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+from drf_writable_nested import WritableNestedModelSerializer
 
 from accounts.models import Customer, Staff
 import logging
@@ -7,14 +8,14 @@ import logging
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
-class ProfileSerializer(serializers.Serializer):
+# class ProfileSerializer(serializers.Serializer):
     
-    class Meta:
+    # class Meta:
 
-        fields = [   
+    #     fields = [   
    
-            'address',
-        ]
+    #         'address',
+    #     ]
     # def create(self, validated_data):
     #     meter_id = validated_data.pop('meter')
         
@@ -39,7 +40,7 @@ class ProfileSerializer(serializers.Serializer):
     #     return instance
 
 class CustomerSerializer(WritableNestedModelSerializer):
-    customerprofile = ProfileSerializer()
+    # customerprofile = ProfileSerializer()
     
     class Meta:
         model = Customer
@@ -79,7 +80,7 @@ class StaffSerializer(serializers.ModelSerializer):
 
 class CustomerCreateSerializer(WritableNestedModelSerializer):
     
-    customerprofile = ProfileSerializer()
+    # customerprofile = ProfileSerializer()
     
     re_password = serializers.CharField(
         style = {'input_type' : 'password'},
@@ -103,7 +104,7 @@ class CustomerCreateSerializer(WritableNestedModelSerializer):
             'is_active',
             'full_name',
             'birthday',
-            'customerprofile',
+            # 'customerprofile',
         ]
        
     def create(self, validated_data):
@@ -121,9 +122,9 @@ class CustomerCreateSerializer(WritableNestedModelSerializer):
         customer.set_password(password)
         customer.save()
         
-        customerprofile_serializer = ProfileSerializer()
-        profile_validated_data['customer'] = customer
-        customerprofile =  customerprofile_serializer.create(profile_validated_data)
+        # # customerprofile_serializer = ProfileSerializer()
+        # profile_validated_data['customer'] = customer
+        # customerprofile =  customerprofile_serializer.create(profile_validated_data)
         
         return customer
     
